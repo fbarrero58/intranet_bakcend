@@ -4,11 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH.'/libraries/REST_Controller.php';
 
-class Empresas extends REST_Controller {
+class Proyectos extends REST_Controller {
 
     public function __construct(){
         parent::__construct();
-        $this->load->model('Empresa_model');
+        $this->load->model('Proyecto_model');
     }
 
     /*******************************
@@ -21,15 +21,15 @@ class Empresas extends REST_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
 
-        if( $this->form_validation->run( 'empresas_post' ) ){ 
-            
-            $data = $this->Empresa_model->insertar($data);
+        if( $this->form_validation->run('proyectos_post') ){
 
-            if($data['error']){
-                return $this->response($data,400);
+            $resultado = $this->Proyecto_model->insertar($data);
+
+            if($resultado['err']){
+                return $this->response($resultado, 400);
             }
 
-            return $this->response($data, 201);
+            return $this->response($resultado, 201);
 
         }else{
 
@@ -49,13 +49,12 @@ class Empresas extends REST_Controller {
 
     public function index_get( $id=null ){
 
-        if( !isset($id) ){
-            $respuesta = $this->Empresa_model->todos();
+        if(!isset($id)){
+            $resultado = $this->Proyecto_model->todos();
         }else{
-            $respuesta = $this->Empresa_model->por_id($id);
+            $resultado = $this->Proyecto_model->por_id($id);
         }
-        return $this->response($respuesta);
-
+        return $this->response($resultado);
     }
 
     /*******************************
@@ -66,7 +65,7 @@ class Empresas extends REST_Controller {
 
         $data = $this->put();
         $this->load->library('form_validation');
-        $this->form_validation->set_data($data);
+        //$this->form_validation->set_data($data);
 
         if( !isset($id) ){
 
@@ -78,24 +77,22 @@ class Empresas extends REST_Controller {
 
         }else{
 
-            if( $this->form_validation->run( 'empresas_put' ) ){
+            //if( $this->form_validation->run( 'empresas_put' ) ){
 
-                $respuesta = $this->Empresa_model->actualizar($id,$data);
+                $respuesta = $this->Proyecto_model->actualizar($id,$data);
                 return $this->response($respuesta);
 
-            }else{
+            // }else{
 
-                $respuesta = array(
-                    'err' => TRUE,
-                    'mensaje' => $this->form_validation->get_errores_arreglo()
-                );
-                return $this->response($respuesta, 400);
-            }
+            //     $respuesta = array(
+            //         'err' => TRUE,
+            //         'mensaje' => $this->form_validation->get_errores_arreglo()
+            //     );
+            //     return $this->response($respuesta, 400);
+            // }
 
         }
         
     }
-
-  
 
 }

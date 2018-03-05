@@ -1,48 +1,24 @@
 <?php
 
-    function capitalizar_arreglo( $data_cruda, $campos_capitalizar, $todos = FALSE ){
+    function verificar_duplicidad($tabla, $campo, $valor){
 
-        $data_lista = $data_cruda;
+        $CI =& get_instance();
+        $CI->load->database();
 
-        foreach( $data_cruda as $nombre_campo => $valor_campo ){
+        $query = $CI->db->get_where($tabla, array($campo => $valor));
 
-            // echo 'Nombre campo: ' . $nombre_campo.'<br>';
-            // echo 'Valor campo: ' . $valor_campo.'<br>';
-            // echo '------------------<br>';
-
-            if( in_array( $nombre_campo, array_values($campos_capitalizar) ) || $todos ){
-                $data_lista[ $nombre_campo ] = strtoupper($valor_campo);
-            }
-
+        if($query->num_rows() > 0){
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Este código ya esta asignado'
+            );  
+        }else{
+            $respuesta = array(
+                'err' => FALSE
+            );
         }
 
-        return $data_lista;
-
-    }
-
-    function obtener_mes( $mes ){
-
-        $meses = array (
-            'enero',
-            'febrero',
-            'marzo',
-            'abril',
-            'mayo',
-            'junio',
-            'julio',
-            'agosto',
-            'septiembre',
-            'octubre',
-            'noviembre',
-            'diciembre'
-        );
-
-        return $meses[$mes];
-
-    }
-
-    function obtener_anio(){
-
+        return $respuesta;
     }
 
 ?>

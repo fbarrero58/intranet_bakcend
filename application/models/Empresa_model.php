@@ -4,14 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Empresa_model extends CI_Model {
 
-    public $id;
-    public $id_tipo_empresa;
-    public $codigo;
-    public $nombre;
-    public $habilitado;
-    public $alias;
-    public $condicion_pago;
-
     public function __construct(){
         $this->load->database();
     }
@@ -95,6 +87,7 @@ class Empresa_model extends CI_Model {
     *******************************/
 
     public function todos(){
+        $this->db->select('id, codigo, nombre');
         $query = $this->db->get('empresas');
         $resultado = array(
             'err' => FALSE,
