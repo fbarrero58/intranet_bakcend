@@ -19,6 +19,20 @@ $config = array(
 		array( 'field'=>'cargo', 'label'=>'Cargo','rules'=>'trim|required' ),
 		array( 'field'=>'fecha_vinculacion', 'label'=>'Fecha de Vinculación','rules'=>'trim|required' ),
 		array( 'field'=>'correo_personal', 'label'=>'Correo Personal','rules'=>'trim|valid_email' )
+	),
+	
+	'empresas_post' => array(
+			array( 'field'=>'tipo_empresa', 'label'=>'Tipo de Empresa','rules'=>'trim|required' ),
+			array( 'field'=>'codigo', 'label'=>'Código','rules'=>'trim|required' ),
+			array( 'field'=>'nombre', 'label'=>'Nombre del proyecto','rules'=>'trim|required' ),
+			array( 'field'=>'alias', 'label'=>'Alias del proyecto','rules'=>'trim|required' ),
+			array( 'field'=>'condicion_pago', 'label'=>'Condición de pago','rules'=>'trim|required' ),
+	),
+
+	'empresas_put' => array(
+		array( 'field'=>'tipo_empresa', 'label'=>'Tipo de Empresa','rules'=>'trim|required' ),
+		array( 'field'=>'nombre', 'label'=>'Nombre del proyecto','rules'=>'trim|required' ),
+		array( 'field'=>'condicion_pago', 'label'=>'Condición de pago','rules'=>'trim|required' ),
 	)
 
 
