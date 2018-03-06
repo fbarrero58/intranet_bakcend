@@ -15,7 +15,11 @@ class Proyecto_model extends CI_Model {
 
     public function insertar($data){
 
-        $resultado = verificar_duplicidad('proyectos','codigo', $data['codigo']);
+
+        $validaciones = array(
+            'codigo' => $data['codigo']
+        );
+        $resultado = verificar_duplicidad('proyectos',$validaciones);
 
         if($resultado['err']){
             return $resultado;
@@ -86,6 +90,10 @@ class Proyecto_model extends CI_Model {
 
         return $resultado;
     }
+
+    /*******************************
+        Actualizar Proyecto
+    *******************************/
 
     public function actualizar( $id, $data ){
 
