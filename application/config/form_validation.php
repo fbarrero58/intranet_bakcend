@@ -56,6 +56,11 @@ $config = array(
 		array( 'field'=>'habilitado', 'label'=>'Habilitado','rules'=>'trim|required' ),
 		array( 'field'=>'ticket', 'label'=>'Habilitar Ticket','rules'=>'trim|required' ),
 		array( 'field'=>'facturable', 'label'=>'Facturable','rules'=>'trim|required' ),
+	),
+
+	'alianzas_post' => array(
+		array( 'field'=>'nombre', 'label'=>'Nombre','rules'=>'trim|required' ),
+		array( 'field'=>'condicion_pago', 'label'=>'Condición de pago','rules'=>'trim|required' )
 	)
 
 
