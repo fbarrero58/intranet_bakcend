@@ -69,15 +69,40 @@ class Usuarios extends REST_Controller {
     /******************************
         Actualizar usuarios
     ******************************/
-/*
-    public function index_put(){
+
+    public function index_put( $id=null){
+
         $data = $this->put();
-
         $this->load->library('form_validation');
-        $this->form_validation->actualizar($data);
+        $this->form_validation->set_data($data);
 
-        //echo $this->form_validation->run(); 
-       
-    }*/
+        if( !isset($id) ){
+
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Se debe especificar un ID'
+            );
+            return $this->response($respuesta,404);
+
+        }else{
+
+            if( $this->form_validation->run( 'usuarios_put' ) ){
+
+                $respuesta = $this->Usuario_model->actualizar($id,$data);
+                return $this->response($respuesta);
+
+            }else{
+
+                $respuesta = array(
+                    'err' => TRUE,
+                    'mensaje' => $this->form_validation->get_errores_arreglo()
+                );
+                return $this->response($respuesta, 400);
+            }
+
+        }  
+
+    }
+    
     
 }

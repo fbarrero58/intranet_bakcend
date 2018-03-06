@@ -7,6 +7,7 @@ class Usuario_model extends CI_Model {
     public function __construct(){
         parent::__construct();
         $this->load->database();
+        $this->load->helper('utilidades');
     }
     
     /******************************
@@ -20,17 +21,18 @@ class Usuario_model extends CI_Model {
         if($query->num_rows() > 0){
             $respuesta = array(
                 'err' => TRUE,
-                'mensaje' => 'Este correo ya esta asignado a otro Ususario'
+                'mensaje' => 'Este correo ya esta asignado a otro Usuario'
             );
             return $respuesta;
         }
+
         $this->db->reset_query();  
 
         $query = $this->db->get_where('usuarios_info_personal', array('correo_personal' => $data['correo_personal']));
         if($query->num_rows() > 0){
             $respuesta = array(
                 'err' => TRUE,
-                'mensaje' => 'Este correo ya esta asignado a otro Ususario'
+                'mensaje' => 'Correo personal ya esta asignado a otro Ususario'
             );
             return $respuesta;
         }
@@ -102,8 +104,20 @@ class Usuario_model extends CI_Model {
      /******************************
         Actualizar usuarios
      ******************************/
-/*
-    public function actualizar($id){
+
+    public function actualizar( $id, $data ){
+        
+        $validaciones = array(
+            'correo_personal' => $data['correo_personal'],
+            'id_usuario !='=> $id
+        );
+        $resultado = verificar_duplicidad('usuarios_info_personal',$validaciones);
+
+        if($resultado['err']){
+            return $resultado;
+        }
+
+
         //actualizar registro a tabla usuario
         $data_update = array(
             'id_rol' => $data['id_rol'],
@@ -111,12 +125,42 @@ class Usuario_model extends CI_Model {
             'fecha_vinculacion' => $data['fecha_vinculacion'],
             'foto' => $data['foto'],
             'perfil_profesional' => $data['perfil_profesional']
-        );    
-        $this->db->where('id', $id);
-        $this->db->update('mytable', $data_update);     
-         
+        );  
         
-    }*/
+        $this->db->set($data_update);
+        $this->db->where('id', $id);
+        $this->db->update('usuario');
+        $this->db->reset_query();
+
+        //insertar registro en tabla usuario_info_personal
+        $data_update = array(
+            'nombres' => $data['nombres'],
+            'apellidos' => $data['apellidos'],
+            'rut' => $data['rut'],
+            'correo_personal' => $data['correo_personal'],
+            'celular' => $data['celular'],
+            'fecha_nacimiento' => $data['fecha_nacimiento'],
+            'direccion' => $data['direccion'],
+            'pais_origen' => $data['pais_origen'],
+            'pais_residencia' => $data['pais_residencia'],
+            'pais_residencia' => $data['pais_residencia']
+        ); 
+
+        $this->db->set($data_update);
+        $this->db->where('id_usuario', $id);
+        $this->db->update('usuarios_info_personal');
+
+
+        $respuesta = array(
+            'err' => FALSE,
+            'mensaje' => 'Usuario actualizado exitosamente'
+        );
+
+
+
+        return $respuesta;        
+        
+    }
 
 
 }
