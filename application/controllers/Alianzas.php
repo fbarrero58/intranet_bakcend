@@ -4,11 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH.'/libraries/REST_Controller.php';
 
-class Empresas extends REST_Controller {
+class Alianzas extends REST_Controller {
 
     public function __construct(){
         parent::__construct();
-        $this->load->model('Empresa_model');
+        $this->load->model('Alianza_model');
         $this->load->helper('utilidades');
     }
 
@@ -29,15 +29,15 @@ class Empresas extends REST_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
 
-        if( $this->form_validation->run( 'empresas_post' ) ){ 
-            
-            $data = $this->Empresa_model->insertar($data);
+        if( $this->form_validation->run('alianzas_post') ){
 
-            if($data['error']){
-                return $this->response($data,400);
+            $resultado = $this->Alianza_model->insertar($data);
+
+            if($resultado['err']){
+                return $this->response($resultado, 400);
             }
 
-            return $this->response($data, 201);
+            return $this->response($resultado, 201);
 
         }else{
 
@@ -63,13 +63,9 @@ class Empresas extends REST_Controller {
         if( $resultadoToken['err'] ){
             return $this->response($resultadoToken);
         }
-
-        if( !isset($id) ){
-            $respuesta = $this->Empresa_model->todos();
-        }else{
-            $respuesta = $this->Empresa_model->por_id($id);
-        }
-        return $this->response($respuesta);
+        
+        $resultado = $this->Alianza_model->todos();
+        return $this->response($resultado);
 
     }
 
@@ -79,6 +75,7 @@ class Empresas extends REST_Controller {
 
     public function index_put( $id=null ){
 
+        $data = $this->put();
         $token = $_GET['token'];
         $resultadoToken = validar_token($token);
 
@@ -86,7 +83,6 @@ class Empresas extends REST_Controller {
             return $this->response($resultadoToken);
         }
 
-        $data = $this->put();
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
 
@@ -100,9 +96,9 @@ class Empresas extends REST_Controller {
 
         }else{
 
-            if( $this->form_validation->run( 'empresas_put' ) ){
+            if( $this->form_validation->run( 'alianzas_post' ) ){
 
-                $respuesta = $this->Empresa_model->actualizar($id,$data);
+                $respuesta = $this->Alianza_model->actualizar($id,$data);
                 return $this->response($respuesta);
 
             }else{
@@ -117,7 +113,5 @@ class Empresas extends REST_Controller {
         }
         
     }
-
-  
 
 }

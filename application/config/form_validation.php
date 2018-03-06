@@ -75,6 +75,12 @@ $config = array(
 		array( 'field'=>'estado', 'label'=>'estado','rules'=>'trim|required' ),
 		array( 'field'=>'fecha', 'label'=>'Fecha','rules'=>'trim|required' ),
 		array( 'field'=>'horas', 'label'=>'Horas','rules'=>'trim|required' )
+
+	),
+
+	'alianzas_post' => array(
+		array( 'field'=>'nombre', 'label'=>'Nombre','rules'=>'trim|required' ),
+		array( 'field'=>'condicion_pago', 'label'=>'Condición de pago','rules'=>'trim|required' )
 	)
 
 

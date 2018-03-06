@@ -8,6 +8,7 @@ class Usuarios extends REST_Controller {
 	public function __construct(){
         parent::__construct();
         $this->load->model('Usuario_model');
+        $this->load->helper('utilidades');
     }
 
     /******************************
@@ -15,7 +16,14 @@ class Usuarios extends REST_Controller {
     ******************************/
 
     public function index_post(){ 
+
         $data = $this->post();
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken);
+        }
 
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
@@ -48,6 +56,14 @@ class Usuarios extends REST_Controller {
     ******************************/
 
     public function index_get($id=null){
+
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken);
+        }
+
         $usuario = $this->Usuario_model->obtener($id);
 
         if(!isset($usuario)){
@@ -73,6 +89,13 @@ class Usuarios extends REST_Controller {
     public function index_put( $id=null){
 
         $data = $this->put();
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken);
+        }
+
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
 
