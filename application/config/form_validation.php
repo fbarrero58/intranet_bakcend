@@ -66,6 +66,15 @@ $config = array(
 		array( 'field'=>'habilitado', 'label'=>'Habilitado','rules'=>'trim|required' ),
 		array( 'field'=>'ticket', 'label'=>'Habilitar Ticket','rules'=>'trim|required' ),
 		array( 'field'=>'facturable', 'label'=>'Facturable','rules'=>'trim|required' ),
+	),
+
+	'permisos_post' => array(
+		array( 'field'=>'id_usuario_solicitante', 'label'=>'Usuario Solicitante','rules'=>'trim|required' ),
+		array( 'field'=>'id_usuario_aprobador', 'label'=>'Usuario Aprobador','rules'=>'trim|required' ),
+		array( 'field'=>'tipo_solicitud', 'label'=>'Tipo Solicitud','rules'=>'trim|required' ),
+		array( 'field'=>'estado', 'label'=>'estado','rules'=>'trim|required' ),
+		array( 'field'=>'fecha', 'label'=>'Fecha','rules'=>'trim|required' ),
+		array( 'field'=>'horas', 'label'=>'Horas','rules'=>'trim|required' )
 	)
 
 
