@@ -102,8 +102,8 @@ class Usuario_model extends CI_Model {
      /******************************
         Actualizar usuarios
      ******************************/
-/*
-    public function actualizar($id){
+
+    public function actualizar( $id, $data ){
         //actualizar registro a tabla usuario
         $data_update = array(
             'id_rol' => $data['id_rol'],
@@ -112,11 +112,38 @@ class Usuario_model extends CI_Model {
             'foto' => $data['foto'],
             'perfil_profesional' => $data['perfil_profesional']
         );    
-        $this->db->where('id', $id);
-        $this->db->update('mytable', $data_update);     
-         
         
-    }*/
+        $this->db->reset_query();
+
+        //insertar registro en tabla usuario_info_personal
+        $data_update = array(
+            'nombres' => $data['nombres'],
+            'apellidos' => $data['apellidos'],
+            'rut' => $data['rut'],
+            'correo_personal' => $data['correo_personal'],
+            'celular' => $data['celular'],
+            'fecha_nacimiento' => $data['fecha_nacimiento'],
+            'direccion' => $data['direccion'],
+            'pais_origen' => $data['pais_origen'],
+            'pais_residencia' => $data['pais_residencia'],
+            'pais_residencia' => $data['pais_residencia']
+        ); 
+
+        $this->db->set($data_update);
+        $this->db->where('id_usuario', $id);
+        $this->db->update('usuarios_info_personal');
+
+
+        $respuesta = array(
+            'err' => FALSE,
+            'mensaje' => 'Usuario actualizado exitosamente'
+        );
+
+
+
+        return $respuesta;        
+        
+    }
 
 
 }
