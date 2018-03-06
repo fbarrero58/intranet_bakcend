@@ -65,7 +65,7 @@ class Proyectos extends REST_Controller {
 
         $data = $this->put();
         $this->load->library('form_validation');
-        //$this->form_validation->set_data($data);
+        $this->form_validation->set_data($data);
 
         if( !isset($id) ){
 
@@ -77,19 +77,19 @@ class Proyectos extends REST_Controller {
 
         }else{
 
-            //if( $this->form_validation->run( 'empresas_put' ) ){
+            if( $this->form_validation->run( 'proyectos_put' ) ){
 
                 $respuesta = $this->Proyecto_model->actualizar($id,$data);
                 return $this->response($respuesta);
 
-            // }else{
+            }else{
 
-            //     $respuesta = array(
-            //         'err' => TRUE,
-            //         'mensaje' => $this->form_validation->get_errores_arreglo()
-            //     );
-            //     return $this->response($respuesta, 400);
-            // }
+                $respuesta = array(
+                    'err' => TRUE,
+                    'mensaje' => $this->form_validation->get_errores_arreglo()
+                );
+                return $this->response($respuesta, 400);
+            }
 
         }
         
