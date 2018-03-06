@@ -9,6 +9,7 @@ class Alianzas extends REST_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('Alianza_model');
+        $this->load->helper('utilidades');
     }
 
     /*******************************
@@ -18,6 +19,13 @@ class Alianzas extends REST_Controller {
     public function index_post(){
 
         $data = $this->post();
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken);
+        }
+
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
 
@@ -49,12 +57,14 @@ class Alianzas extends REST_Controller {
 
     public function index_get( $id=null ){
 
-        if( !isset($id) ){
-            $resultado = $this->Alianza_model->todos();
-        }else{
-            //$resultado = $this->Alianza_model->todos();
-        }
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
 
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken);
+        }
+        
+        $resultado = $this->Alianza_model->todos();
         return $this->response($resultado);
 
     }
@@ -66,6 +76,13 @@ class Alianzas extends REST_Controller {
     public function index_put( $id=null ){
 
         $data = $this->put();
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken);
+        }
+
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
 

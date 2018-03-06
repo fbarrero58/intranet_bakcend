@@ -83,7 +83,11 @@
         $llave = obtener_llave();
 
         try{
-            $respuesta = $myJWT->decode($token,$llave,true);
+            // $respuesta = $myJWT->decode($token,$llave,true);
+            $respuesta = array(
+                'err' => FALSE,
+                'objeto' => $myJWT->decode($token,$llave,true)
+            );
             return $respuesta;
         }catch(UnexpectedValueException $e){
           return array(

@@ -9,6 +9,7 @@ class Empresas extends REST_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('Empresa_model');
+        $this->load->helper('utilidades');
     }
 
     /*******************************
@@ -18,6 +19,13 @@ class Empresas extends REST_Controller {
     public function index_post(){
 
         $data = $this->post();
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken);
+        }
+
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
 
@@ -49,6 +57,13 @@ class Empresas extends REST_Controller {
 
     public function index_get( $id=null ){
 
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken);
+        }
+
         if( !isset($id) ){
             $respuesta = $this->Empresa_model->todos();
         }else{
@@ -63,6 +78,13 @@ class Empresas extends REST_Controller {
     *******************************/
 
     public function index_put( $id=null ){
+
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken);
+        }
 
         $data = $this->put();
         $this->load->library('form_validation');
