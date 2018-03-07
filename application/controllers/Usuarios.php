@@ -69,7 +69,7 @@ class Usuarios extends REST_Controller {
         if(!isset($usuario)){
             $respuesta = array(
                 'err' => TRUE,
-                'mensaje' => 'No existe una factura con el ID '. $id
+                'mensaje' => 'No existe un usuario con el ID '. $id
             );
             return $this->response($respuesta, 404);
         }else{
