@@ -68,11 +68,53 @@ $config = array(
 		array( 'field'=>'facturable', 'label'=>'Facturable','rules'=>'trim|required' ),
 	),
 
+	'permisos_post' => array(
+		array( 'field'=>'id_usuario_solicitante', 'label'=>'Usuario Solicitante','rules'=>'trim|required' ),
+		array( 'field'=>'id_usuario_aprobador', 'label'=>'Usuario Aprobador','rules'=>'trim|required' ),
+		array( 'field'=>'fecha', 'label'=>'Fecha','rules'=>'trim|required' ),
+		array( 'field'=>'horas', 'label'=>'Horas','rules'=>'trim|required' )
+	),
+
+	'vacaciones_post' => array(
+		array( 'field'=>'id_usuario_solicitante', 'label'=>'Usuario Solicitante','rules'=>'trim|required' ),
+		array( 'field'=>'id_usuario_aprobador', 'label'=>'Usuario Aprobador','rules'=>'trim|required' ),
+		array( 'field'=>'desde', 'label'=>'Desde','rules'=>'trim|required' ),
+		array( 'field'=>'hasta', 'label'=>'Hasta','rules'=>'trim|required' )
+	),
+	
+	'compensatorio_post' => array(
+		array( 'field'=>'id_usuario_solicitante', 'label'=>'Usuario Solicitante','rules'=>'trim|required' ),
+		array( 'field'=>'id_usuario_aprobador', 'label'=>'Usuario Aprobador','rules'=>'trim|required' ),
+		array( 'field'=>'fecha', 'label'=>'Fecha','rules'=>'trim|required' ),
+		array( 'field'=>'razon', 'label'=>'Razón','rules'=>'trim|required' )
+	),
+
+	'aprobar_put' => array(
+		array( 'field'=>'estado', 'label'=>'Estado','rules'=>'trim|required' )
+	),
+
+	'permisos_put' => array(
+		array( 'field'=>'id_usuario_aprobador', 'label'=>'Usuario Aprobador','rules'=>'trim|required' ),
+		array( 'field'=>'fecha', 'label'=>'Fecha','rules'=>'trim|required' ),
+		array( 'field'=>'horas', 'label'=>'Horas','rules'=>'trim|required' )
+	),
+
+	'vacaciones_put' => array(
+		array( 'field'=>'id_usuario_aprobador', 'label'=>'Usuario Aprobador','rules'=>'trim|required' ),
+		array( 'field'=>'desde', 'label'=>'Desde','rules'=>'trim|required' ),
+		array( 'field'=>'hasta', 'label'=>'Hasta','rules'=>'trim|required' )
+	),
+
+	'compensatorio_put' => array(
+		array( 'field'=>'id_usuario_aprobador', 'label'=>'Usuario Aprobador','rules'=>'trim|required' ),
+		array( 'field'=>'fecha', 'label'=>'Fecha','rules'=>'trim|required' ),
+		array( 'field'=>'razon', 'label'=>'Razón','rules'=>'trim|required' )
+	),
+
 	'alianzas_post' => array(
 		array( 'field'=>'nombre', 'label'=>'Nombre','rules'=>'trim|required' ),
 		array( 'field'=>'condicion_pago', 'label'=>'Condición de pago','rules'=>'trim|required' )
 	)
-
 
 );
 

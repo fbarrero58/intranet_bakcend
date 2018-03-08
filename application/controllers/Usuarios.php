@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH.'/libraries/REST_Controller.php';
 
 class Usuarios extends REST_Controller {
-    public function __construct(){
+	public function __construct(){
         parent::__construct();
         $this->load->model('Usuario_model');
         $this->load->helper('utilidades');
@@ -69,7 +69,7 @@ class Usuarios extends REST_Controller {
         if(!isset($usuario)){
             $respuesta = array(
                 'err' => TRUE,
-                'mensaje' => 'No existe una factura con el ID '. $id
+                'mensaje' => 'No existe un usuario con el ID '. $id
             );
             return $this->response($respuesta, 404);
         }else{
