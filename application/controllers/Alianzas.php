@@ -9,6 +9,7 @@ class Alianzas extends REST_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('Alianza_model');
+        $this->load->model('Contacto_model');
         $this->load->helper('utilidades');
     }
 
@@ -112,6 +113,73 @@ class Alianzas extends REST_Controller {
 
         }
         
+    }
+
+    /*******************************
+        GET - Contactos
+    *******************************/
+
+    public function contacto_get($id=null){
+
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+        }
+
+        if( !isset($id) ){
+            $respuesta = array(
+                'err' => true,
+                'mensaje' => 'Se debe especificar el ID de la alianza'
+            );
+            return $this->response($respuesta,400);
+        }
+
+        $respuesta = $this->Contacto_model->todos($id,'alianza');
+        return $this->response($respuesta);
+
+    }
+
+    /*******************************
+        POST - Contactos
+    *******************************/
+
+    public function contacto_post(){
+
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+        }
+
+        $data = $this->post();
+
+        $respuesta = $this->Contacto_model->insertar($data);
+
+        $this->response($respuesta);
+
+    }
+
+    /*******************************
+        PUT - Contactos
+    *******************************/
+
+    public function contacto_put($id){
+
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+        }
+
+        $data = $this->put();
+
+        $resultado = $this->Contacto_model->actualizar($id,$data);
+        return $this->response($resultado);
+
     }
 
 }

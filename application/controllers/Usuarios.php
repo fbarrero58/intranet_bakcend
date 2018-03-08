@@ -22,7 +22,7 @@ class Usuarios extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
         }
 
         $this->load->library('form_validation');
@@ -61,7 +61,7 @@ class Usuarios extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
         }
 
         $usuario = $this->Usuario_model->obtener($id);
@@ -93,7 +93,7 @@ class Usuarios extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
         }
 
         $this->load->library('form_validation');
