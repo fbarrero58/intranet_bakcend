@@ -156,11 +156,94 @@ class Usuario_model extends CI_Model {
             'mensaje' => 'Usuario actualizado exitosamente'
         );
 
-
-
         return $respuesta;        
         
     }
 
+    /******************************
+        Asignar modulos
+     ******************************/
+
+    public function asignar_modulo( $id, $data ){
+
+        $data_insert = array(
+            'id_usuario' => $id,
+            'id_modulos' => $data['modulo']
+        );
+
+        $query = $this->db->get_where('modulos_usuarios',$data_insert);
+
+        if( $query->num_rows() > 0 ){
+            $this->db->insert('modulos_usuarios', $data_insert);
+            $respuesta = array(
+                'err' => FALSE,
+                'mensaje' => 'Asignación exitosa'
+            );
+        }else{
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'El usuario ya tiene asignado este modulo'
+            );
+        }
+
+        return $respuesta;
+
+    }
+
+     /******************************
+        Traer modulos de usuarios
+     ******************************/
+
+     public function traer_modulos( $id=null ){
+
+        if( isset($id) ){
+            $this->db->where('b.id_usuario',$id);
+        }
+
+        $this->db->select("CONCAT(b.nombres,' ',b.apellidos) as usuario, CONCAT(d.nombre,' ',e.nombre) as modulo");
+        $this->db->from('modulos_usuarios a');
+        $this->db->join('usuarios_info_personal b', 'a.id_usuario = b.id_usuario');
+        $this->db->join('perfiles_modulos c', 'a.id_modulos = c.id');
+        $this->db->join('vmca_perfiles d', 'c.id_perfiles = d.id');
+        $this->db->join('vmca_modulos e', 'c.id_modulos = e.id');
+        $query = $this->db->get();
+
+        if( $query->num_rows() > 0 ){
+            $respuesta = array(
+                'err' => FALSE,
+                'modulos' => $query->result()
+            );
+        }else{
+            $respuesta = array(
+                'err' => FALSE,
+                'mensaje' => 'Este usuario no tiene modulos asignados'
+            );
+        }
+
+        return $respuesta;
+
+    }
+
+    /******************************
+        Eliminar modulo de usuario
+     ******************************/
+
+     public function eliminar_modulo( $id_usuario, $id_modulo ){
+
+        $array_delete = array(
+            'id_usuario' => $id_usuario,
+            'id_modulos' => $id_modulo
+        );
+
+        $this->db->delete('modulos_usuarios', $array_delete);
+
+        $respuesta = array(
+            'err' => FALSE,
+            'mensaje' => 'Modulo de usuario eliminado'
+        );
+
+        return $respuesta;
+
+     }
 
 }

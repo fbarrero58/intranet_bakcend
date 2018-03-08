@@ -126,6 +126,87 @@ class Usuarios extends REST_Controller {
         }  
 
     }
+
+    /******************************
+        Asignar modulos
+    ******************************/
+
+    public function modulo_post($id=null){
+
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+        }
+
+        if( !isset($id) ){
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Debe especificar el ID del usuario'
+            );
+            return $this->response($respuesta, 400);
+        }
+
+        $data = $this->post();
+
+        $respuesta = $this->Usuario_model->asignar_modulo($id, $data);
+
+        if( $respuesta['err'] ){
+            return $this->response($respuesta);
+        }else{
+            return $this->response($respuesta,400);
+        }
+
+        
+
+    }
+
+    /******************************
+        Traer modulos de usuario
+    ******************************/
+
+    public function modulo_get($id=null){
+
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+        }
+
+        $respuesta = $this->Usuario_model->traer_modulos($id);
+
+        return $this->response($respuesta);
+
+    }
+
+    /******************************
+        Eliminar modulo de usuario
+    ******************************/
+
+    public function modulo_delete($id_usuario=null, $id_modulo=null){
+
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+        }
+
+        if( !isset($id_usuario) || !isset($id_modulo) ){
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Se debe especificar el usuario y el módulo'
+            );
+            $this->response($respuesta, 400);
+        }
+
+        $respuesta = $this->Usuario_model->eliminar_modulo($id_usuario, $id_modulo);
+
+        return $this->response($respuesta);
+
+    }
     
     
 }
