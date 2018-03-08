@@ -114,7 +114,64 @@ $config = array(
 	'alianzas_post' => array(
 		array( 'field'=>'nombre', 'label'=>'Nombre','rules'=>'trim|required' ),
 		array( 'field'=>'condicion_pago', 'label'=>'Condición de pago','rules'=>'trim|required' )
+	),
+
+	'educacion_post' => array(
+		array( 'field'=>'id_usuario', 'label'=>'Usuario','rules'=>'trim|required' ),
+		array( 'field'=>'id_tipo_estudio', 'label'=>'Tipo de estudio','rules'=>'trim|required' ),
+		array( 'field'=>'pais', 'label'=>'Pais','rules'=>'trim|required' ),
+		array( 'field'=>'institucion', 'label'=>'Institucion','rules'=>'trim|required' ),
+		array( 'field'=>'titulo', 'label'=>'Titulo','rules'=>'trim|required' ),
+		array( 'field'=>'fecha_inicio', 'label'=>'Fecha inicio','rules'=>'trim|required' ),
+		array( 'field'=>'fecha_fin', 'label'=>'Fecha fin','rules'=>'trim|required' )
+	),
+
+	'educacion_put' => array(
+		array( 'field'=>'id_usuario', 'label'=>'Usuario','rules'=>'trim|required' ),
+		array( 'field'=>'id_tipo_estudio', 'label'=>'Tipo de estudio','rules'=>'trim|required' ),
+		array( 'field'=>'pais', 'label'=>'Pais','rules'=>'trim|required' ),
+		array( 'field'=>'institucion', 'label'=>'Institucion','rules'=>'trim|required' ),
+		array( 'field'=>'titulo', 'label'=>'Titulo','rules'=>'trim|required' ),
+		array( 'field'=>'fecha_inicio', 'label'=>'Fecha inicio','rules'=>'trim|required' ),
+		array( 'field'=>'fecha_fin', 'label'=>'Fecha fin','rules'=>'trim|required' )
+	),
+
+	'empresa_post' => array(
+		array( 'field'=>'id_usuario', 'label'=>'Usuario','rules'=>'trim|required' ),
+		array( 'field'=>'nombre', 'label'=>'Nombre','rules'=>'trim|required' ),
+		array( 'field'=>'industria', 'label'=>'Industria','rules'=>'trim|required' )
+	),
+
+	'cargo_post' => array(
+		array( 'field'=>'id_empresa', 'label'=>'Empresa','rules'=>'trim|required' ),
+		array( 'field'=>'nombre', 'label'=>'Nombre','rules'=>'trim|required' ),
+		array( 'field'=>'fecha_inicio', 'label'=>'Fecha inicio','rules'=>'trim|required' ),
+		array( 'field'=>'fecha_fin', 'label'=>'Fecha fin','rules'=>'trim|required' )
+	),
+
+	'responsabilidad_post' => array(
+		array( 'field'=>'id_cargo', 'label'=>'ID Cargo','rules'=>'trim|required' ),
+		array( 'field'=>'descripcion', 'label'=>'Descripción','rules'=>'trim|required' )
+	),
+
+	'empresa_put' => array(
+		array( 'field'=>'id_usuario', 'label'=>'Usuario','rules'=>'trim|required' ),
+		array( 'field'=>'nombre', 'label'=>'Nombre','rules'=>'trim|required' ),
+		array( 'field'=>'industria', 'label'=>'Industria','rules'=>'trim|required' )
+	),
+
+	'cargo_put' => array(
+		array( 'field'=>'id_empresa', 'label'=>'Empresa','rules'=>'trim|required' ),
+		array( 'field'=>'nombre', 'label'=>'Nombre','rules'=>'trim|required' ),
+		array( 'field'=>'fecha_inicio', 'label'=>'Fecha inicio','rules'=>'trim|required' ),
+		array( 'field'=>'fecha_fin', 'label'=>'Fecha fin','rules'=>'trim|required' )
+	),
+
+	'responsabilidad_put' => array(
+		array( 'field'=>'id_cargo', 'label'=>'ID Cargo','rules'=>'trim|required' ),
+		array( 'field'=>'descripcion', 'label'=>'Descripción','rules'=>'trim|required' )
 	)
+
 
 );
 

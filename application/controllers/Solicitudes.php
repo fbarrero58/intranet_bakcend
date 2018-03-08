@@ -21,7 +21,7 @@ class Solicitudes extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
 		}
 		
 		$this->load->library('form_validation');
@@ -63,7 +63,7 @@ class Solicitudes extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
         }
 		
 		$this->load->library('form_validation');
@@ -104,7 +104,7 @@ class Solicitudes extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
 		}
 		
 		$this->load->library('form_validation');
@@ -145,7 +145,7 @@ class Solicitudes extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
         }
 
         $resultado = $this->Solicitud_model->solicitudes_traer($id);
@@ -188,7 +188,7 @@ class Solicitudes extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
 		}
 
 		$this->load->library('form_validation');
@@ -228,7 +228,7 @@ class Solicitudes extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
         }
 
         $this->load->library('form_validation');
@@ -266,7 +266,7 @@ class Solicitudes extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
         }
 
         $this->load->library('form_validation');
@@ -302,7 +302,7 @@ class Solicitudes extends REST_Controller {
         $resultadoToken = validar_token($token);
 
         if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
+            return $this->response($resultadoToken, 403);
         }
 
         $this->load->library('form_validation');
