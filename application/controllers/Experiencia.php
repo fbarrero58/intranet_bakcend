@@ -262,10 +262,90 @@ class Experiencia extends REST_Controller {
         if( $resultadoToken['err'] ){
             return $this->response($resultadoToken, 403);
 		}
+				
+		if( !isset($id) ){
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Se debe especificar un ID'
+            );
+            return $this->response($respuesta,404);
+        }else{
 			$resultado = $this->Experiencia_model->traer_experiencia($id);
-			return $this->response($resultado);
-		
+			return $this->response($resultado);	
+		}
+
 	}
 
+	/******************************
+       Eliminar responsabilidad
+	******************************/
 
+	public function responsabilidad_delete($id=null){
+		$token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+		}
+		
+		if( !isset($id) ){
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Se debe especificar un ID'
+            );
+            return $this->response($respuesta,404);
+        }else{
+			$resultado = $this->Experiencia_model->eliminar_responsabilidad($id);
+			return $this->response($resultado);
+		}
+	}
+
+	/******************************
+       Eliminar cargo
+	******************************/
+	
+	public function cargos_delete($id=null){
+		$token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+		}
+		
+		if( !isset($id) ){
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Se debe especificar un ID'
+            );
+            return $this->response($respuesta,404);
+        }else{
+			$resultado = $this->Experiencia_model->eliminar_cargo($id);
+			return $this->response($resultado);
+		}
+	}
+
+	/******************************
+       Eliminar empresa
+	******************************/
+	
+	public function empresa_delete($id=null){
+		$token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+		}
+		
+		if( !isset($id) ){
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Se debe especificar un ID'
+            );
+            return $this->response($respuesta,404);
+        }else{
+			$resultado = $this->Experiencia_model->eliminar_empresa($id);
+			return $this->response($resultado);
+		}
+	}
+		
 }

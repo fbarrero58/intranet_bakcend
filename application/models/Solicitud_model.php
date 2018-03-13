@@ -141,9 +141,9 @@ class Solicitud_model extends CI_Model {
 	******************************/
 
 	public function aprobacion_traer($id){
-		$this->db->select('s.id, s.id_usuario_solicitante, s.id_usuario_aprobador, CONCAT(i.nombres , " " , i.apellidos) As nombre_aprobador,s.tipo_solicitud, s.estado, s.fecha_solicitud');
+		$this->db->select('s.id, s.id_usuario_solicitante, CONCAT(i.nombres , " " , i.apellidos) As nombre_solicitante, s.id_usuario_aprobador,s.tipo_solicitud, s.estado, s.fecha_solicitud');
         $this->db->from('solicitudes s');
-		$this->db->join('usuarios_info_personal i', 's.id_usuario_aprobador = i.id_usuario');
+		$this->db->join('usuarios_info_personal i', 's.id_usuario_solicitante = i.id_usuario');
 		if ($id != null){
 			$this->db->where(array('s.id_usuario_aprobador' => $id));
 		}

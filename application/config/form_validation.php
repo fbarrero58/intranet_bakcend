@@ -170,7 +170,24 @@ $config = array(
 	'responsabilidad_put' => array(
 		array( 'field'=>'id_cargo', 'label'=>'ID Cargo','rules'=>'trim|required' ),
 		array( 'field'=>'descripcion', 'label'=>'Descripción','rules'=>'trim|required' )
+	),
+
+	'registrohoras_post' => array(
+		array( 'field'=>'id_proyecto', 'label'=>'ID Proyecto','rules'=>'trim|required' ),
+		array( 'field'=>'id_actividad', 'label'=>'ID Actividad','rules'=>'trim|required' ),
+		array( 'field'=>'id_tipo_servicio', 'label'=>'Tipo de Servicio','rules'=>'trim|required' ),
+		array( 'field'=>'id_usuario', 'label'=>'ID Usuario','rules'=>'trim|required' ),
+		array( 'field'=>'descripcion', 'label'=>'Descripción','rules'=>'trim|required' )
+	),
+
+	'registrohoras_put' => array(
+		array( 'field'=>'id_proyecto', 'label'=>'ID Proyecto','rules'=>'trim|required' ),
+		array( 'field'=>'id_actividad', 'label'=>'ID Actividad','rules'=>'trim|required' ),
+		array( 'field'=>'id_tipo_servicio', 'label'=>'Tipo de Servicio','rules'=>'trim|required' ),
+		array( 'field'=>'id_usuario', 'label'=>'ID Usuario','rules'=>'trim|required' ),
+		array( 'field'=>'descripcion', 'label'=>'Descripción','rules'=>'trim|required' )
 	)
+
 
 
 );

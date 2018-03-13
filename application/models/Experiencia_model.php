@@ -93,16 +93,6 @@ class Experiencia_model extends CI_Model {
 
 		return $respuesta;
 
-		$query = $this->db->get_where('id_usuario', array('correo' => $data['correo']));
-        if($query->num_rows() > 0){
-            $respuesta = array(
-                'err' => TRUE,
-                'mensaje' => 'Este correo ya esta asignado a otro Usuario'
-            );
-            return $respuesta;
-		}
-		
-
 	}
 
 	/******************************
@@ -163,40 +153,132 @@ class Experiencia_model extends CI_Model {
 		$this->db->where(array('id_usuario' => $id));
 		$query = $this->db->get();
 
-		//if(!empty($query))
-		//{
 		$arreglo_empresas = array();
 		$arreglo_cargos = array();
+		$arreglo_general = array();
 
 		foreach($query->result_array() as $row){
 			$this->db->reset_query(); 
 			$this->db->select('*');
 			$this->db->from('cargos_empresa');
 			$this->db->where(array('id_empresa' => $row['id']));
-			$query = $this->db->get();
-			$result = $query->result();
+			$query2 = $this->db->get();
+			$result = $query2->result();
 
-			array_push($arreglo_empresas, $row);
+			$arreglo_cargos = array();
 
-			foreach($query->result_array() as $rowc){
+			foreach($query2->result_array() as $rowc){
 				$this->db->reset_query(); 
 				$this->db->select('*');
 				$this->db->from('responsabilidades_cargo');
 				$this->db->where(array('id_cargo' => $rowc['id']));
-				$query = $this->db->get();
-				$resultc = $query->result();
+				$query3 = $this->db->get();
+				$resultc = $query3->result();	
+				$arreglo_responsabilidades = array();
 
-				$empresa_temp = array(
-					'empresa' => $row,
-					'cargos' => $arreglo_empresas,
-					'Responsabilidad' => $resultc
+				foreach($query3->result_array() as $rowr){
+					$modelo_responsa = array(
+						'id' => $rowr['id'],
+						'id_cargo' => $rowr['id_cargo'],
+						'descripcion' => $rowr['descripcion']
+					);
+					array_push($arreglo_responsabilidades,$modelo_responsa);
+				}
+
+				$modelo_cargos = array(
+					'id' => $rowc['id'],
+					'id_empresa' => $rowc['id_empresa'],
+					'nombre' => $rowc['nombre'],
+					'fecha_inicio' => $rowc['fecha_inicio'],
+					'fecha_fin' => $rowc['fecha_fin'],
+					'Responsabilidades' => $arreglo_responsabilidades
 				);
-				array_push($arreglo_cargos, $empresa_temp);
+				array_push($arreglo_cargos,$modelo_cargos);
 			}
-			//array_push($arreglo_cargos, $result);			
+
+			$modelo_empresa = array(
+				'id' => $row['id'],
+				'nombre' => $row['nombre'],
+				'industria'=> $row['industria'],
+				'cargos' => $arreglo_cargos
+			);
+	
+			array_push($arreglo_empresas, $modelo_empresa);		
 		}
-		return $arreglo_cargos;
+		return $arreglo_empresas;
 	}
+
+	/******************************
+       Eliminar responsabilidad
+	******************************/
+
+	public function eliminar_responsabilidad($id){
+		$this->db->where('id', $id);
+		$this->db->delete('responsabilidades_cargo');
+		
+        $respuesta = array(
+            'err' => FALSE,
+            'mensaje' => 'Responsabilidad eliminada exitosamente'
+		);
+
+		return $respuesta;
+	}
+
+	/******************************
+       Eliminar cargo
+	******************************/
+
+	public function eliminar_cargo($id){
+
+		// eliminar responsabilidad
+		$this->db->where('id_cargo', $id);
+		$this->db->delete('responsabilidades_cargo');
+		
+		//eliminar cargo
+		$this->db->where('id', $id);
+		$this->db->delete('cargos_empresa');
+
+        $respuesta = array(
+            'err' => FALSE,
+            'mensaje' => 'Cargo eliminado exitosamente'
+		);
+
+		return $respuesta;
+	}
+
+	/******************************
+       Eliminar empresa
+	******************************/
+
+	public function eliminar_empresa($id){
+
+		$this->db->select('id');
+		$this->db->from('cargos_empresa');
+		$this->db->where(array('id_empresa' => $id));
+		$query = $this->db->get();
+
+		foreach($query->result_array() as $row){			
+			// eliminar responsabilidad
+			$this->db->where('id_cargo',  $row['id']);
+			$this->db->delete('responsabilidades_cargo');
+		}
+
+			// eliminar cargo
+			$this->db->where('id_empresa',  $id);
+			$this->db->delete('cargos_empresa');
+
+			//eliminar empresa
+			$this->db->where('id',  $id);
+			$this->db->delete('empresas_usuario');
+
+			$respuesta = array(
+				'err' => FALSE,
+				'mensaje' => 'Empresa eliminada exitosamente'
+			);
+	
+			return $respuesta;
+	}
+
 
 }
 

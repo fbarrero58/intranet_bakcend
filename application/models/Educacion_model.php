@@ -77,9 +77,26 @@ class Educacion_model extends CI_Model {
             'mensaje' => 'Educación modificada exitosamente'
 		);
 		
-
 		return $respuesta;
 
 	}
+
+	/******************************
+        eliminar Educación
+	******************************/
+
+	public function eliminar_educacion($id){
+
+		$this->db->where('id', $id);
+		$this->db->delete('educacion_usuario');
+
+        $respuesta = array(
+            'err' => FALSE,
+            'mensaje' => 'Educación eliminada exitosamente'
+		);
+
+		return $respuesta;
+	}
+
 
 }

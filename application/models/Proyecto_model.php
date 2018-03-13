@@ -118,7 +118,5 @@ class Proyecto_model extends CI_Model {
         );
 
         return $respuesta;
-
-    }
-    
+    }  
 }

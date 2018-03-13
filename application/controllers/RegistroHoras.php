@@ -4,20 +4,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH.'/libraries/REST_Controller.php';
 
-class Educaciones extends REST_Controller {
-	public function __construct(){
+class RegistroHoras extends REST_Controller {
+
+    public function __construct(){
         parent::__construct();
-		$this->load->model('Educacion_model');
-		$this->load->helper('utilidades');
+        $this->load->model('RegistroHoras_model');
+        $this->load->helper('utilidades');
 	}
 
 	/******************************
-        Insertar Educación
+        Insertar Registro de Horas
 	******************************/
-
+	
 	public function index_post(){
-
-        $data = $this->post();
+		$data = $this->post();
         $token = $_GET['token'];
         $resultadoToken = validar_token($token);
 
@@ -28,9 +28,9 @@ class Educaciones extends REST_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
 
-        if( $this->form_validation->run('educacion_post') ){
+        if( $this->form_validation->run('registrohoras_post') ){
 
-            $resultado = $this->Educacion_model->insertar($data);
+            $resultado = $this->RegistroHoras_model->insertar($data);
 
             if($resultado['err']){
                 return $this->response($resultado, 400);
@@ -48,34 +48,9 @@ class Educaciones extends REST_Controller {
 
 		}
 	}
-	
 
 	/******************************
-        Traer Educación
-	******************************/
-
-	public function index_get($id=null){
-		$token = $_GET['token'];
-        $resultadoToken = validar_token($token);
-
-        if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken, 403);
-		}
-		
-		if( !isset($id) ){
-            $respuesta = array(
-                'err' => TRUE,
-                'mensaje' => 'Se debe especificar un ID'
-            );
-            return $this->response($respuesta,404);
-        }else{
-			$resultado = $this->Educacion_model->traer($id);
-			return $this->response($resultado);
-		}
-	}
-
-	/******************************
-        Modificar Educación
+        Modificar Registro de Horas
 	******************************/
 
 	public function index_put($id=null){
@@ -100,9 +75,9 @@ class Educaciones extends REST_Controller {
 
         }else{
 
-            if( $this->form_validation->run( 'educacion_put' ) ){
+            if( $this->form_validation->run( 'registrohoras_put' ) ){
 
-                $respuesta = $this->Educacion_model->actualizar_empresa($id,$data);
+                $respuesta = $this->RegistroHoras_model->actualizar($id,$data);
                 return $this->response($respuesta);
 
             }else{
@@ -113,15 +88,13 @@ class Educaciones extends REST_Controller {
                 );
                 return $this->response($respuesta, 400);
             }
-
         }
-        
 	}
-	
+
 	/******************************
-       Eliminar Educación
+        Eliminar Registro de Horas
 	******************************/
-	
+
 	public function index_delete($id=null){
 		$token = $_GET['token'];
         $resultadoToken = validar_token($token);
@@ -137,13 +110,34 @@ class Educaciones extends REST_Controller {
             );
             return $this->response($respuesta,404);
         }else{
-			$resultado = $this->Educacion_model->eliminar_educacion($id);
+			$resultado = $this->RegistroHoras_model->eliminar($id);
 			return $this->response($resultado);
 		}
 	}
-		
-		
 
+	/******************************
+        Traer Registro de Horas
+	******************************/
 
-	
+	public function index_get($id=null){
+		$token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+		}
+				
+		if( !isset($id) ){
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Se debe especificar un ID'
+            );
+            return $this->response($respuesta,404);
+        }else{
+			$resultado = $this->RegistroHoras_model->traer($id);
+			return $this->response($resultado);	
+		}
+
+	}
+
 }
