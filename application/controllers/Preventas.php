@@ -4,16 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH.'/libraries/REST_Controller.php';
 
-class Asignaciones extends REST_Controller {
-
-    public function __construct(){
+class Preventas extends REST_Controller {
+	public function __construct(){
         parent::__construct();
-		$this->load->model('Asignacion_model');
+		$this->load->model('Preventa_model');
 		$this->load->helper('utilidades');
 	}
 
 	/******************************
-        Insertar Asignación
+        Insertar Preventa
 	******************************/
 
 	public function index_post(){
@@ -28,9 +27,9 @@ class Asignaciones extends REST_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
 
-        if( $this->form_validation->run('asignacion_post') ){
+        if( $this->form_validation->run('preventa_post') ){
 
-            $resultado = $this->Asignacion_model->insertar($data);
+            $resultado = $this->Preventa_model->insertar_preventa($data);
 
             if($resultado['err']){
                 return $this->response($resultado, 400);
@@ -50,7 +49,7 @@ class Asignaciones extends REST_Controller {
 	}
 
 	/******************************
-        Actualizar Asignación
+        Actualizar Preventa
 	******************************/
 
 	public function index_put($id=null){
@@ -75,9 +74,9 @@ class Asignaciones extends REST_Controller {
 
         }else{
 
-            if( $this->form_validation->run( 'asignacion_put' ) ){
+            if( $this->form_validation->run( 'preventa_put' ) ){
 
-                $respuesta = $this->Asignacion_model->actualizar($id,$data);
+                $respuesta = $this->Preventa_model->actualizar_preventa($id,$data);
                 return $this->response($respuesta);
 
             }else{
@@ -91,50 +90,6 @@ class Asignaciones extends REST_Controller {
         }
 	}
 
-	/******************************
-        Traer Asignación
-	******************************/
-
-	public function index_get( $id=null ){
-
-        $token = $_GET['token'];
-        $resultadoToken = validar_token($token);
-
-        if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken);
-        }
-
-        if(!isset($id)){
-            $resultado = $this->Asignacion_model->todos();
-        }else{
-            $resultado = $this->Asignacion_model->por_id($id);
-        }
-        return $this->response($resultado);
-	}
 	
-	/******************************
-       Eliminar Asignación
-	******************************/
-	
-	public function index_delete($id=null){
-		$token = $_GET['token'];
-        $resultadoToken = validar_token($token);
-
-        if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken, 403);
-		}
-		
-		if( !isset($id) ){
-            $respuesta = array(
-                'err' => TRUE,
-                'mensaje' => 'Se debe especificar un ID'
-            );
-            return $this->response($respuesta,404);
-        }else{
-			$resultado = $this->Asignacion_model->eliminar($id);
-			return $this->response($resultado);
-		}
-	}
-
 
 }

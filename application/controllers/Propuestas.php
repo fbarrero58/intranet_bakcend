@@ -4,16 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH.'/libraries/REST_Controller.php';
 
-class Asignaciones extends REST_Controller {
+class Propuestas extends REST_Controller {
 
     public function __construct(){
         parent::__construct();
-		$this->load->model('Asignacion_model');
+		$this->load->model('Propuesta_model');
 		$this->load->helper('utilidades');
 	}
 
 	/******************************
-        Insertar Asignación
+        Insertar Propuesta
 	******************************/
 
 	public function index_post(){
@@ -28,9 +28,9 @@ class Asignaciones extends REST_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_data($data);
 
-        if( $this->form_validation->run('asignacion_post') ){
+        if( $this->form_validation->run('propuesta_post') ){
 
-            $resultado = $this->Asignacion_model->insertar($data);
+            $resultado = $this->Propuesta_model->insertar($data);
 
             if($resultado['err']){
                 return $this->response($resultado, 400);
@@ -50,7 +50,7 @@ class Asignaciones extends REST_Controller {
 	}
 
 	/******************************
-        Actualizar Asignación
+        Actualizar Propuesta
 	******************************/
 
 	public function index_put($id=null){
@@ -75,9 +75,99 @@ class Asignaciones extends REST_Controller {
 
         }else{
 
-            if( $this->form_validation->run( 'asignacion_put' ) ){
+            if( $this->form_validation->run( 'propuesta_put' ) ){
 
-                $respuesta = $this->Asignacion_model->actualizar($id,$data);
+                $respuesta = $this->Propuesta_model->actualizar($id,$data);
+                return $this->response($respuesta);
+
+            }else{
+
+                $respuesta = array(
+                    'err' => TRUE,
+                    'mensaje' => $this->form_validation->get_errores_arreglo()
+                );
+                return $this->response($respuesta, 400);
+            }
+        }
+	}
+
+	
+
+	/******************************
+        Insertar Condicion Comercial
+	******************************/
+
+	public function condicion_post($id = null){
+        $data = $this->post();
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+        }
+
+        $this->load->library('form_validation');
+		$this->form_validation->set_data($data);
+		if( !isset($id) ){
+
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Se debe especificar un ID'
+            );
+            return $this->response($respuesta,404);
+
+        }else{
+
+			if( $this->form_validation->run('condicion_post') ){
+
+				$resultado = $this->Propuesta_model->insertar_condicion($id, $data);
+
+				if($resultado['err']){
+					return $this->response($resultado, 400);
+				}
+
+				return $this->response($resultado, 201);
+
+			}else{
+
+				$respuesta = array(
+					'err' => TRUE,
+					'mensaje' => $this->form_validation->get_errores_arreglo()
+				);
+				return $this->response( $respuesta, 400 );
+
+			}
+		}
+	}
+
+	/******************************
+        Actualizar Asignación
+	******************************/
+
+	public function condicion_put($id=null){
+		$data = $this->put();
+        $token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+        }
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_data($data);
+
+        if( !isset($id) ){
+            $respuesta = array(
+                'err' => TRUE,
+                'mensaje' => 'Se debe especificar un ID'
+            );
+            return $this->response($respuesta,404);
+
+        }else{
+
+            if( $this->form_validation->run( 'condicion_put' ) ){
+
+                $respuesta = $this->Propuesta_model->actualizar_condicion($id,$data);
                 return $this->response($respuesta);
 
             }else{
@@ -92,11 +182,10 @@ class Asignaciones extends REST_Controller {
 	}
 
 	/******************************
-        Traer Asignación
+        Traer Propuesta
 	******************************/
 
 	public function index_get( $id=null ){
-
         $token = $_GET['token'];
         $resultadoToken = validar_token($token);
 
@@ -105,36 +194,11 @@ class Asignaciones extends REST_Controller {
         }
 
         if(!isset($id)){
-            $resultado = $this->Asignacion_model->todos();
+            $resultado = $this->Propuesta_model->todos();
         }else{
-            $resultado = $this->Asignacion_model->por_id($id);
+            $resultado = $this->Propuesta_model->por_id($id);
         }
         return $this->response($resultado);
 	}
-	
-	/******************************
-       Eliminar Asignación
-	******************************/
-	
-	public function index_delete($id=null){
-		$token = $_GET['token'];
-        $resultadoToken = validar_token($token);
-
-        if( $resultadoToken['err'] ){
-            return $this->response($resultadoToken, 403);
-		}
-		
-		if( !isset($id) ){
-            $respuesta = array(
-                'err' => TRUE,
-                'mensaje' => 'Se debe especificar un ID'
-            );
-            return $this->response($respuesta,404);
-        }else{
-			$resultado = $this->Asignacion_model->eliminar($id);
-			return $this->response($resultado);
-		}
-	}
-
 
 }

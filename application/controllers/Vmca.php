@@ -104,7 +104,46 @@ class Vmca extends REST_Controller {
             return $this->response($resultadoToken, 403);
 		}
 		
-		$resultado = $this->Vmca_model->traer_modulos();
+		$resultado = $this->Vmca_model->traer_tipoempresa();
 		return $this->response($resultado);	
 	}
+
+
+	public function estadoscomerciales_get(){
+		$token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+		}
+		
+		$resultado = $this->Vmca_model->traer_estadoscomerciales();
+		return $this->response($resultado);	
+	}
+
+	public function estadosfacturacion_get(){
+		$token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+		}
+		
+		$resultado = $this->Vmca_model->traer_estadosfacturacion();
+		return $this->response($resultado);	
+	}
+
+	public function estadospago_get(){
+		$token = $_GET['token'];
+        $resultadoToken = validar_token($token);
+
+        if( $resultadoToken['err'] ){
+            return $this->response($resultadoToken, 403);
+		}
+		
+		$resultado = $this->Vmca_model->traer_estadospago();
+		return $this->response($resultado);	
+	}
+
+
 }

@@ -7,7 +7,12 @@ require APPPATH.'/libraries/REST_Controller.php';
 class Login extends REST_Controller {
 
     public function __construct(){
-        parent::__construct();
+		parent::__construct();
+		
+		header("Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS");
+        header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
+		header("Access-Control-Allow-Origin: *");
+		
         $this->load->model('Login_model');
         $this->load->helper('utilidades');
     }
@@ -17,8 +22,13 @@ class Login extends REST_Controller {
     *******************************/
 
     public function index_post(){
-
-        $data = $this->post();
+		$respuesta = array(
+            'OK' => TRUE,
+            'mensaje' => $this->post()
+        );
+		return $this->response($respuesta);
+		
+		$data = $this->post();
 
         $respuesta = $this->Login_model->ingresar($data);
 

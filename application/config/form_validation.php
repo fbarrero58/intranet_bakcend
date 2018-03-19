@@ -186,8 +186,63 @@ $config = array(
 		array( 'field'=>'id_tipo_servicio', 'label'=>'Tipo de Servicio','rules'=>'trim|required' ),
 		array( 'field'=>'id_usuario', 'label'=>'ID Usuario','rules'=>'trim|required' ),
 		array( 'field'=>'descripcion', 'label'=>'Descripción','rules'=>'trim|required' )
-	)
+	),
 
+
+	'asignacion_post' => array(
+		array( 'field'=>'id_proyecto', 'label'=>'ID Proyecto','rules'=>'trim|required' ),
+		array( 'field'=>'id_usuario', 'label'=>'ID Usuario','rules'=>'trim|required' ),
+		array( 'field'=>'id_modulos_usuario', 'label'=>'Id Modulos Usuario','rules'=>'trim|required' )
+	),
+
+	'asignacion_put' => array(
+		array( 'field'=>'id_proyecto', 'label'=>'ID Proyecto','rules'=>'trim|required' ),
+		array( 'field'=>'id_usuario', 'label'=>'ID Usuario','rules'=>'trim|required' ),
+		array( 'field'=>'id_modulos_usuario', 'label'=>'Id Modulos Usuario','rules'=>'trim|required' )
+	),
+
+	'propuesta_post' => array(
+		array( 'field'=>'id_proyecto', 'label'=>'ID Proyecto','rules'=>'trim|required' ),
+		array( 'field'=>'id_estado_comercial', 'label'=>'ID Estado Comercial','rules'=>'trim|required' ),
+		array( 'field'=>'num_version', 'label'=>'Número de Versión','rules'=>'trim|required' ),
+		array( 'field'=>'nombre', 'label'=>'Nombre','rules'=>'trim|required' ),
+		array( 'field'=>'descripcion', 'label'=>'Descripción','rules'=>'trim|required' ),
+		array( 'field'=>'horas_vendidas', 'label'=>'Horas Vendidas','rules'=>'trim|required' ),
+		array( 'field'=>'valor_total', 'label'=>'Valor Total','rules'=>'trim|required' )
+	),
+
+	'propuesta_put' => array(
+		array( 'field'=>'id_estado_comercial', 'label'=>'ID Estado Comercial','rules'=>'trim|required' ),
+		array( 'field'=>'num_version', 'label'=>'Número de Versión','rules'=>'trim|required' ),
+		array( 'field'=>'nombre', 'label'=>'Nombre','rules'=>'trim|required' ),
+		array( 'field'=>'descripcion', 'label'=>'Descripción','rules'=>'trim|required' ),
+		array( 'field'=>'horas_vendidas', 'label'=>'Horas Vendidas','rules'=>'trim|required' ),
+		array( 'field'=>'valor_total', 'label'=>'Valor Total','rules'=>'trim|required' )
+	),
+
+	'condicion_post' => array(
+		array( 'field'=>'id_estado_facturacion', 'label'=>'ID Estado Facturación','rules'=>'trim|required' ),
+		array( 'field'=>'id_estado_pago', 'label'=>'ID Estado Pago','rules'=>'trim|required' )
+	),
+
+	'condicion_put' => array(
+		array( 'field'=>'id_estado_facturacion', 'label'=>'ID Estado Facturación','rules'=>'trim|required' ),
+		array( 'field'=>'id_estado_pago', 'label'=>'ID Estado Pago','rules'=>'trim|required' )
+	),
+
+	'preventa_post' => array(
+		array( 'field'=>'id_linea_servicio', 'label'=>'ID Estado Facturación','rules'=>'trim|required' ),
+		array( 'field'=>'id_usuario', 'label'=>'ID Estado Pago','rules'=>'trim|required' ),
+		array( 'field'=>'id_contacto', 'label'=>'ID Estado Pago','rules'=>'trim|required' ),
+		array( 'field'=>'id_estado_pipeline', 'label'=>'ID Estado Pago','rules'=>'trim|required' )
+	),
+
+	'preventa_put' => array(
+		array( 'field'=>'id_linea_servicio', 'label'=>'ID Estado Facturación','rules'=>'trim|required' ),
+		array( 'field'=>'id_usuario', 'label'=>'ID Estado Pago','rules'=>'trim|required' ),
+		array( 'field'=>'id_contacto', 'label'=>'ID Estado Pago','rules'=>'trim|required' ),
+		array( 'field'=>'id_estado_pipeline', 'label'=>'ID Estado Pago','rules'=>'trim|required' )
+	)
 
 
 );

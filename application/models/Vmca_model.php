@@ -93,24 +93,60 @@ class Vmca_model extends CI_Model {
 		return $resultado;
 	}
 
-	public function traer_tipoempresa(){
+
+
+	public function traer_estadoscomerciales(){
 		$this->db->select('*');
-        $this->db->from('vmca_modulos');
+        $this->db->from('vmca_estados_comerciales');
         $query = $this->db->get();
         $resultado = array(
             'err' => FALSE,
-            'mensaje' => 'Modulos cargados exitosamente',
+            'mensaje' => 'Estado comerciales cargados exitosamente',
             'módulos' => $query->result()
         );
 		return $resultado;
 	}
 
+	public function traer_estadosfacturacion(){
+		$this->db->select('*');
+        $this->db->from('vmca_estados_facturacion');
+        $query = $this->db->get();
+        $resultado = array(
+            'err' => FALSE,
+            'mensaje' => 'Estados de facturación cargados exitosamente',
+            'módulos' => $query->result()
+        );
+		return $resultado;
+	}
+
+	public function traer_estadospago(){
+		$this->db->select('*');
+        $this->db->from('vmca_estados_pago');
+        $query = $this->db->get();
+        $resultado = array(
+            'err' => FALSE,
+            'mensaje' => 'Estados de facturación cargados exitosamente',
+            'módulos' => $query->result()
+        );
+		return $resultado;
+	}
+
+	public function traer_tipoempresa(){
+		$this->db->select('*');
+        $this->db->from('vmca_tipo_empresa');
+        $query = $this->db->get();
+        $resultado = array(
+            'err' => FALSE,
+            'mensaje' => 'Tipos de empresa cargados exitosamente',
+            'módulos' => $query->result()
+        );
+		return $resultado;
+	}
+
+
+
 	/*
 		Faltan
-			- tipo empresa
-			- estados comerciales
-			- estados facturacion
-			- estados pago
 			- actividades comerciales
 			- estados pipeline
     */
